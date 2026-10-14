@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Calendario | Escuelas Salesianas María Auxiliadora · Nervión (Sevilla)</title>
+    <meta name="description" content="Calendario del curso del colegio: festivos, evaluaciones, reuniones, pastoral y actividades de todas las etapas, siempre al día.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Fira Sans"', 'sans-serif'] },
+                    colors: {
+                        corp: {
+                            green: '#b4be00',
+                            lightgreen: '#cfd150',
+                            blue: '#009abb',
+                            darkblue: '#007a94',
+                            orange: '#ee712a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/lucide@1.52.0/dist/umd/lucide.min.js"></script>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#009abb">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Calendario">
+    <meta name="application-name" content="Calendario">
+    <link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- Vista previa al compartir el enlace (WhatsApp, Teams, correo, redes).
+         Si la web se publica en otra dirección, cámbiala en las líneas con "https://calendario-nervion.vercel.app/". -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content="Escuelas Salesianas María Auxiliadora">
+    <meta property="og:title" content="Calendario | Escuelas Salesianas María Auxiliadora · Nervión (Sevilla)">
+    <meta name="twitter:title" content="Calendario | Escuelas Salesianas María Auxiliadora · Nervión (Sevilla)">
+    <meta property="og:description" content="Calendario del curso del colegio: festivos, evaluaciones, reuniones, pastoral y actividades de todas las etapas, siempre al día.">
+    <meta property="og:url" content="https://calendario-nervion.vercel.app/">
+    <meta property="og:image" content="https://calendario-nervion.vercel.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Calendario | Escuelas Salesianas María Auxiliadora · Nervión (Sevilla)">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://calendario-nervion.vercel.app/og-image.png">
+
+    <style>
+        html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+        body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); -webkit-tap-highlight-color: transparent; }
+        button, a, select, input, textarea { touch-action: manipulation; }
+
+        /* Cabecera y menú: iguales que en Control de baños y Biblioteca */
+        :root { --azul: #009abb; --azul-oscuro: #007791; --verde: #b4be00; --naranja: #ee712a; --panel: #FFFFFF; --borde: #E2E8F0; --suave: #64748B; --texto: #1E293B; }
+        #calendario, #proximos, #suscripcion { scroll-margin-top: 60px; }
+        .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 10px 16px; background: var(--panel); border-bottom: 2px solid var(--azul); }
+        .marca { display: flex; align-items: center; gap: 14px; min-width: 0; }
+        .marca .logo { height: 40px; width: auto; display: block; flex: none; }
+        .marca h1 { margin: 0; font-size: 18px; font-weight: 700; color: var(--azul); padding-left: 14px; border-left: 1px solid var(--borde); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .usuario { font-size: 13px; color: var(--suave); display: flex; gap: 14px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+        .usuario a { color: var(--azul); font-weight: 600; text-decoration: none; white-space: nowrap; }
+        .usuario a:hover { text-decoration: underline; }
+        .pie { text-align: center; color: var(--suave); font-size: 13px; padding: 20px 16px; border-top: 1px solid var(--borde); }
+        #tabs { position: sticky; top: 0; z-index: 40; display: flex; gap: 2px; padding: 0 8px; background: var(--panel); border-bottom: 1px solid var(--borde); overflow-x: auto; scrollbar-width: none; }
+        #tabs::-webkit-scrollbar { display: none; }
+        #tabs > a { font: inherit; border: 0; background: none; padding: 13px 14px; font-size: 15px; color: var(--suave); cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; text-decoration: none; display: block; }
+        #tabs > a:hover { color: var(--azul); }
+        #tabs > .activa { color: var(--azul); border-bottom-color: var(--verde); font-weight: 600; }
+        @media (max-width: 600px) {
+            .marca .logo { height: 32px; } .marca h1 { font-size: 16px; padding-left: 10px; } .marca { gap: 10px; }
+            #tabs > a { padding: 12px 10px; font-size: 14px; }
+            .tab-largo { display: none; }
+            .usuario .doc-largo { display: none; }
+        }
+        @media (display-mode: standalone) {
+            .instalar { display: none !important; }
+        }
+
+        .modal-card { max-height: 92vh; max-height: 92dvh; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+        .chip { padding: .25rem .75rem; border-radius: .5rem; font-size: .75rem; font-weight: 600; background: #f1f5f9; color: #475569; display: inline-flex; align-items: center; gap: .4rem; }
+        .chip:hover { background: #e2e8f0; }
+        .chip.on-azul { background: var(--azul); color: #fff; }
+        .chip.on-verde { background: var(--verde); color: #fff; }
+        .punto { width: .6rem; height: .6rem; border-radius: 9999px; flex: none; display: inline-block; }
+
+        /* Colores de los días (los mismos tipos que marca el documento) */
+        .dia-finde { background: #f6f7e3; }
+        .dia-festivo { background: #e3f4f8; }
+        .dia-vacaciones { background: #fdeee4; }
+        .dia-sin { background: #f8fafc; }
+        .dia-cell { min-height: 112px; }
+        .dia-cell:hover { box-shadow: inset 0 0 0 2px #bae6fd; }
+
+        /* Colores de los eventos por tipo */
+        .ev { border: 1px solid; border-radius: .3rem; padding: 1px 4px; font-size: 11px; line-height: 1.25; }
+        .ev-evaluacion { background: #ffe4e6; border-color: #fda4af; color: #881337; }
+        .ev-reunion { background: #e0f2fe; border-color: #7dd3fc; color: #0c4a6e; }
+        .ev-pastoral { background: #f3e8ff; border-color: #d8b4fe; color: #581c87; }
+        .ev-familias { background: #fef3c7; border-color: #fcd34d; color: #78350f; }
+        .ev-actividad { background: #dcfce7; border-color: #86efac; color: #14532d; }
+        .ev-festivo { background: #009abb; border-color: #007791; color: #fff; font-weight: 600; }
+        .ev-otro { background: #f1f5f9; border-color: #cbd5e1; color: #1e293b; }
+        .clamp2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+        @media (max-width: 767px) {
+            .nav-btn { padding: 0.65rem !important; }
+        }
+        @media (max-width: 639px) {
+            #toast-container { left: 1rem; right: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom)); }
+            .toast { max-width: none; }
+            .modal-wrap { align-items: flex-end !important; padding: 0 !important; }
+            .modal-card { max-width: none !important; border-bottom-left-radius: 0 !important; border-bottom-right-radius: 0 !important; border-top-left-radius: 1rem !important; border-top-right-radius: 1rem !important; padding: 1.25rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom)) !important; }
+            .chip { min-height: 36px; }
+            #buscar { font-size: 16px; }
+        }
+
+        #toast-container { position: fixed; bottom: 1rem; right: 1rem; z-index: 100; display: flex; flex-direction: column; gap: 0.5rem; }
+        .toast { padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.8rem; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,.15); max-width: 320px; }
+        .toast-error { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+        .toast-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+
+        .cargando { background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%); background-size: 200% 100%; animation: brillo 1.4s infinite; }
+        @keyframes brillo { to { background-position: -200% 0; } }
+
+        #print-view { display: none; }
+        @media print {
+            @page { size: A4 landscape; margin: 0.8cm; }
+            html, body { height: 100%; background: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .no-print, #app-view, #toast-container { display: none !important; }
+            #print-view { display: block !important; }
+            /* A4 apaisado menos márgenes: 29.7cm x 21cm - 1.6cm */
+            .print-page { width: 28.1cm; height: 19.4cm; display: flex; flex-direction: column; gap: 0.2cm; overflow: hidden; }
+            .print-header { flex: 0 0 auto; display: flex; align-items: center; gap: 0.5cm; border-bottom: 2px solid #009abb; padding-bottom: 0.15cm; }
+            .print-header img { height: 1.3cm; width: auto; flex-shrink: 0; }
+            .print-header-school { font-size: 9px; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; color: #b4be00 !important; }
+            .print-header-title { font-size: 16px; font-weight: 700; color: #009abb !important; }
+            .print-header-filter { margin-left: auto; font-size: 11px; font-weight: 600; color: #475569 !important; text-align: right; }
+            .print-weekday-row { flex: 0 0 auto; display: grid; grid-template-columns: repeat(7, 1fr); border: 1px solid #cbd5e1; }
+            .print-weeks { flex: 1 1 auto; display: flex; flex-direction: column; min-height: 0; }
+            .print-week-grid { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: repeat(7, 1fr); border-left: 1px solid #cbd5e1; border-right: 1px solid #cbd5e1; border-bottom: 1px solid #cbd5e1; }
+            .print-week-header, .print-day-cell { border-right: 1px solid #cbd5e1; }
+            .print-week-header:last-child, .print-day-cell:last-child { border-right: none; }
+            .print-week-header { background: #f1f5f9 !important; text-align: center; font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 3px 0; color: #475569 !important; }
+            .print-day-cell { padding: 2px; display: flex; flex-direction: column; gap: 1px; min-height: 0; overflow: hidden; }
+            .print-day-number { font-size: 9px; font-weight: 700; color: #64748b !important; text-align: right; flex-shrink: 0; }
+            .print-day-cell .ev { font-size: 7px; line-height: 1.15; padding: 0 2px; border-radius: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 0; }
+            .print-more { font-size: 7px; font-weight: 700; color: #64748b !important; flex-shrink: 0; }
+            .print-notes { flex: 0 0 auto; font-size: 8px; color: #475569 !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans">
+
+    <div id="toast-container"></div>
+
+    <div id="app-view" class="flex flex-col min-h-screen">
+    <!-- CABECERA Y MENÚ (mismo diseño que Control de baños y Biblioteca) -->
+    <header class="top no-print">
+        <div class="marca"><img class="logo" src="logo.svg" alt="Salesianas Nervión"><h1>Calendario <span id="titulo-curso"></span></h1></div>
+        <div class="usuario">
+            <a id="enlace-documento" href="#" target="_blank" rel="noopener noreferrer" hidden>Ver documento <span class="doc-largo">original</span></a>
+            <a href="#" class="instalar" hidden>Instalar app</a>
+        </div>
+    </header>
+    <nav id="tabs" class="no-print" aria-label="Secciones de la página">
+        <a href="#calendario" data-sec="calendario" class="activa">Calendario</a>
+        <a href="#proximos" data-sec="proximos">Próximos días</a>
+        <a href="#suscripcion" data-sec="suscripcion">Suscripción <span class="tab-largo">a calendarios</span></a>
+    </nav>
+    <div id="offline-banner" class="hidden no-print bg-amber-100 border-b border-amber-300 text-amber-900 text-xs font-semibold px-4 py-2 text-center"></div>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-4 pt-4 md:pt-6 pb-8 md:pb-6 space-y-4 md:space-y-6">
+
+        <div id="calendario" class="space-y-4 md:space-y-6">
+
+        <!-- FILTROS -->
+        <section class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-4 no-print">
+            <div>
+                <label class="block text-xs font-bold uppercase text-slate-500 tracking-wider mb-2">1. Etapa</label>
+                <div class="flex flex-wrap gap-2" id="etapa-filters"></div>
+                <p id="etapa-ayuda" class="hidden text-[11px] text-slate-400 mt-2">Se muestran también los eventos comunes a todo el centro.</p>
+            </div>
+            <div class="border-t border-slate-100 pt-3">
+                <label class="block text-xs font-bold uppercase text-slate-500 tracking-wider mb-2">2. Tipo</label>
+                <div class="flex flex-wrap gap-2" id="cat-filters"></div>
+            </div>
+            <div class="border-t border-slate-100 pt-3">
+                <label for="buscar" class="block text-xs font-bold uppercase text-slate-500 tracking-wider mb-2">3. Buscar en todo el curso</label>
+                <div class="relative">
+                    <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                    <input id="buscar" type="search" autocomplete="off" placeholder="Ej.: claustro, evaluación, Don Bosco, 4º ESO…" class="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-sky-200 focus:border-corp-blue">
+                </div>
+            </div>
+        </section>
+
+        <!-- RESULTADOS DE BÚSQUEDA (sustituyen al mes mientras se busca) -->
+        <section id="resultados" class="hidden no-print bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3"></section>
+
+        <div id="vista-mes" class="space-y-4 md:space-y-6">
+        <!-- NAVEGACIÓN DE MES Y ACCIONES -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 bg-white p-3 sm:p-4 rounded-xl border border-slate-200 shadow-sm">
+            <div class="flex items-center justify-between w-full sm:w-auto gap-3">
+                <button onclick="changeMonth(-1)" id="btn-prev" aria-label="Mes anterior" class="nav-btn p-2 hover:bg-slate-100 rounded-lg text-slate-600 disabled:opacity-30 disabled:hover:bg-transparent">
+                    <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                </button>
+                <div class="text-center min-w-[160px]">
+                    <h2 id="current-month-display" class="text-lg font-bold text-slate-800 capitalize leading-tight"></h2>
+                    <div id="month-lema" class="text-[11px] font-semibold text-corp-green leading-tight"></div>
+                </div>
+                <button onclick="changeMonth(1)" id="btn-next" aria-label="Mes siguiente" class="nav-btn p-2 hover:bg-slate-100 rounded-lg text-slate-600 disabled:opacity-30 disabled:hover:bg-transparent">
+                    <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center sm:justify-end gap-2 w-full sm:w-auto">
+                <button onclick="goToday()" class="flex-1 sm:flex-none justify-center bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 px-3 py-2.5 sm:py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5">
+                    <i data-lucide="calendar-check" class="w-4 h-4"></i> Hoy
+                </button>
+                <button onclick="fetchCalendar(true)" title="Vuelve a leer el documento del calendario" class="flex-1 sm:flex-none justify-center bg-blue-50 hover:bg-blue-100 text-corp-blue border border-sky-200 px-3 py-2.5 sm:py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5">
+                    <i data-lucide="refresh-cw" class="w-4 h-4"></i> Actualizar
+                </button>
+                <button onclick="printMonth()" class="hidden sm:flex flex-1 sm:flex-none justify-center bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2.5 sm:py-2 rounded-lg text-xs font-semibold items-center gap-1.5 border border-slate-300">
+                    <i data-lucide="printer" class="w-4 h-4"></i> Imprimir
+                </button>
+            </div>
+        </div>
+
+        <!-- REJILLA DEL CALENDARIO (escritorio) -->
+        <div class="hidden md:block bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="grid grid-cols-7 bg-slate-50 border-b border-slate-200 text-center font-semibold text-xs text-slate-600 py-2.5 uppercase">
+                <div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div class="text-slate-400">Sáb</div><div class="text-slate-400">Dom</div>
+            </div>
+            <div id="calendar-grid" class="grid grid-cols-7 gap-px bg-slate-200"></div>
+        </div>
+
+        <!-- AGENDA EN LISTA (móvil y tablet vertical) -->
+        <div id="calendar-agenda" class="md:hidden space-y-3"></div>
+
+        <!-- NOTAS DEL MES Y LEYENDA -->
+        <div id="month-notes" class="hidden bg-amber-50 border border-amber-200 text-amber-900 rounded-xl p-3 text-xs space-y-1"></div>
+        <div class="flex flex-wrap gap-x-4 gap-y-2 text-[11px] text-slate-500 px-1" id="leyenda"></div>
+        </div>
+        </div>
+
+        <!-- PRÓXIMOS DÍAS -->
+        <section id="proximos" class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+            <div class="flex items-center gap-2 text-corp-blue">
+                <i data-lucide="clock" class="w-5 h-5 text-corp-green"></i>
+                <h2 class="text-sm font-bold uppercase tracking-wider">Próximos 14 días</h2>
+            </div>
+            <div id="proximos-list" class="space-y-3"></div>
+        </section>
+
+        <!-- SUSCRIPCIÓN -->
+        <section id="suscripcion" class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm no-print space-y-3">
+            <div class="flex items-center gap-2 text-corp-blue">
+                <i data-lucide="bell" class="w-5 h-5 text-corp-green"></i>
+                <h2 class="text-sm font-bold uppercase tracking-wider">Recibe el calendario en tu móvil (Google / Apple / Outlook)</h2>
+            </div>
+            <p class="text-xs text-slate-500">Elige el calendario completo o el de tu etapa (incluye también los eventos comunes a todo el centro). «Google» lo añade a tu cuenta de Google; «iCal» sirve para Apple Calendar (iPhone/iPad) y Outlook.</p>
+            <div id="calendar-subscribe-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-1"></div>
+            <div class="flex flex-wrap items-center gap-2 pt-1">
+                <button type="button" onclick="copySubscribeLink()" class="text-[11px] font-semibold px-2.5 py-1.5 rounded border border-slate-200 text-slate-600 hover:border-corp-blue hover:text-corp-blue inline-flex items-center gap-1.5"><i data-lucide="link" class="w-3.5 h-3.5"></i> Copiar enlace del calendario completo</button>
+            </div>
+            <p class="text-[11px] text-slate-400">Los cambios que se hagan en el documento del calendario aparecerán solos en tu calendario (Google y Apple lo revisan cada pocas horas).</p>
+        </section>
+
+        <p id="actualizado" class="text-center text-[11px] text-slate-400 no-print"></p>
+    </main>
+
+    <footer class="pie no-print">Escuelas Salesianas María Auxiliadora · Nervión (Sevilla)</footer>
+    </div>
+
+    <!-- VISTA EXCLUSIVA PARA IMPRESIÓN (generada por JS antes de imprimir) -->
+    <div id="print-view"></div>
+
+    <!-- DETALLE DE UN DÍA -->
+    <div id="day-modal" class="modal-wrap fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden no-print" onclick="if (event.target === this) closeDay()">
+        <div class="modal-card bg-white rounded-xl shadow-xl max-w-lg w-full p-6 space-y-4" role="dialog" aria-modal="true" aria-labelledby="day-title">
+            <div class="flex justify-between items-start gap-3 border-b pb-3">
+                <div>
+                    <h3 id="day-title" class="text-lg font-bold text-slate-800 first-letter:uppercase"></h3>
+                    <div id="day-tipo" class="text-xs font-semibold"></div>
+                </div>
+                <button onclick="closeDay()" aria-label="Cerrar" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <div id="day-body" class="space-y-2 text-sm"></div>
+            <div class="flex justify-between items-center pt-1 gap-2">
+                <div class="flex gap-1">
+                    <button type="button" onclick="stepDay(-1)" aria-label="Día anterior" class="p-2 border rounded-lg text-slate-600 hover:bg-slate-50"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                    <button type="button" onclick="stepDay(1)" aria-label="Día siguiente" class="p-2 border rounded-lg text-slate-600 hover:bg-slate-50"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                </div>
+                <button type="button" onclick="closeDay()" class="px-4 py-1.5 border rounded-lg text-xs font-semibold">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- INSTALAR LA APP (explicación para iPhone/iPad, que no tienen botón de instalar) -->
+    <div id="install-modal" class="modal-wrap fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden no-print" onclick="if (event.target === this) this.classList.add('hidden')">
+        <div class="modal-card bg-white rounded-xl shadow-xl max-w-sm w-full p-6 space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="text-lg font-bold text-slate-800">Instalar la app</h3>
+                <button type="button" onclick="document.getElementById('install-modal').classList.add('hidden')" aria-label="Cerrar" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <ol class="list-decimal pl-5 space-y-2 text-sm text-slate-700">
+                <li>Pulsa el botón <b>Compartir</b> de Safari (el cuadrado con una flecha hacia arriba).</li>
+                <li>Elige <b>«Añadir a pantalla de inicio»</b>.</li>
+                <li>Pulsa <b>Añadir</b>. Aparecerá el icono del colegio en tu pantalla.</li>
+            </ol>
+            <div class="flex justify-end">
+                <button type="button" onclick="document.getElementById('install-modal').classList.add('hidden')" class="px-4 py-1.5 bg-corp-blue hover:bg-corp-darkblue text-white rounded-lg text-xs font-semibold">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Los datos se leen del documento de SharePoint (enlace en config.json) a través de api/calendario.
+        // En Vercel la dirección es relativa; desde cualquier otra dirección (p. ej. GitHub Pages) se usa la de Vercel.
+        const VERCEL_URL = "https://calendario-nervion.vercel.app/";
+        const BASE_URL = /vercel\.app$|^localhost$|^127\.0\.0\.1$/.test(location.hostname) ? new URL("./", location.href).href : VERCEL_URL;
+        const API_URL = BASE_URL + "api/calendario";
+        const ICS_URL = BASE_URL + "calendario.ics";
+
+        const ETAPAS = ["Infantil", "Primaria", "ESO", "Bachillerato", "FP"];
+        const CATS = {
+            evaluacion: { label: "Evaluación y exámenes", color: "#fb7185" },
+            reunion: { label: "Reuniones y formación", color: "#38bdf8" },
+            pastoral: { label: "Pastoral", color: "#c084fc" },
+            familias: { label: "Familias", color: "#fbbf24" },
+            actividad: { label: "Actividades", color: "#4ade80" },
+            festivo: { label: "Festivos", color: "#009abb" },
+            otro: { label: "Otros", color: "#94a3b8" }
+        };
+        const TIPOS = {
+            festivo: { label: "Festivo / no lectivo", cls: "dia-festivo", color: "#009abb" },
+            vacaciones: { label: "Vacaciones", cls: "dia-vacaciones", color: "#ee712a" },
+            finde: { label: "Fin de semana", cls: "dia-finde", color: "#b4be00" },
+            especial: { label: "Día especial", cls: "", color: null }
+        };
+        const MAX_POR_CELDA = 4;
+
+        const CACHE_KEY = "calendario-curso-cache-v1";
+        const FILTERS_KEY = "calendario-curso-filtros-v1";
+
+        let data = null;            // { titulo, curso, modificado, documento, meses, dias }
+        let diasPorFecha = new Map();
+        let selectedEtapa = "ALL";
+        let selectedCat = "ALL";
+        let searchText = "";
+        let currentDate = null;     // primer día del mes que se ve
+        let openDayStr = null;
+        let loading = false;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            restoreFilters();
+            renderFilters();
+            renderLeyenda();
+            renderSubscribeList();
+
+            // Se pinta al instante lo último guardado en el dispositivo y se refresca desde el documento.
+            const cached = loadCache();
+            if (cached) setData(cached.data, true);
+            else renderAll();
+            fetchCalendar(false);
+
+            document.getElementById("buscar").addEventListener("input", (ev) => { searchText = ev.target.value; renderSearch(); });
+
+            lucide.createIcons();
+            registerServiceWorker();
+            window.addEventListener("offline", () => showOfflineBanner());
+            window.addEventListener("online", () => { hideOfflineBanner(); fetchCalendar(false); });
+            if (!navigator.onLine) showOfflineBanner();
+            setupNavSpy();
+        });
+
+        function showToast(message, type = "error", ms = 5000) {
+            const container = document.getElementById("toast-container");
+            const el = document.createElement("div");
+            el.className = `toast ${type === "error" ? "toast-error" : "toast-success"}`;
+            el.textContent = message;
+            container.appendChild(el);
+            setTimeout(() => el.remove(), ms);
+        }
+
+        function escapeHtml(value) {
+            return String(value ?? "").replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+        }
+
+        function sinTildes(s) {
+            return String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+        }
+
+        function fechaStr(d) {
+            return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+        }
+
+        function parseFecha(s) {
+            const [y, m, d] = s.split("-").map(Number);
+            return new Date(y, m - 1, d);
+        }
+
+        function fechaLarga(s, conAnio = true) {
+            const opts = { weekday: "long", day: "numeric", month: "long" };
+            if (conAnio) opts.year = "numeric";
+            return parseFecha(s).toLocaleDateString("es", opts);
+        }
+
+        // ---------------------------------------------------------------
+        // DATOS (desde el documento, con copia en el dispositivo)
+        // ---------------------------------------------------------------
+        function loadCache() {
+            try {
+                const parsed = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
+                return parsed && parsed.data && Array.isArray(parsed.data.dias) ? parsed : null;
+            } catch (e) { return null; }
+        }
+
+        function saveCache() {
+            try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data })); } catch (e) {}
+        }
+
+        async function fetchCalendar(manual) {
+            if (loading) return;
+            loading = true;
+            try {
+                const res = await fetch(API_URL + (manual ? "?t=" + Date.now() : ""), { cache: manual ? "no-store" : "default" });
+                const json = await res.json().catch(() => ({}));
+                if (!res.ok || !Array.isArray(json.dias)) throw new Error(json.error || "No se pudo leer el calendario.");
+                setData(json, false);
+                saveCache();
+                hideOfflineBanner();
+                if (manual) showToast("Calendario actualizado con el documento.", "success", 2500);
+            } catch (e) {
+                console.error("Error al leer el calendario:", e);
+                if (data) {
+                    if (!navigator.onLine) showOfflineBanner();
+                    else showToast(e.message + " Se muestra la última copia guardada.");
+                } else {
+                    showToast(navigator.onLine ? e.message : "Sin conexión: no se puede cargar el calendario todavía.");
+                    renderAll(e.message);
+                }
+            } finally {
+                loading = false;
+            }
+        }
+
+        function setData(json, fromCache) {
+            const prevMonth = currentDate ? currentDate.getTime() : null;
+            data = json;
+            diasPorFecha = new Map(data.dias.map(d => [d.fecha, d]));
+            if (prevMonth === null || !monthInRange(currentDate)) currentDate = initialMonth();
+
+            document.getElementById("titulo-curso").innerHTML = `<span class="tab-largo">del curso </span>${escapeHtml(data.curso || "")}`;
+            const link = document.getElementById("enlace-documento");
+            if (data.documento) { link.href = data.documento; link.hidden = false; }
+            const act = document.getElementById("actualizado");
+            if (data.modificado) {
+                const when = new Date(data.modificado).toLocaleString("es", { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" });
+                act.textContent = `Última modificación del documento: ${when}.`;
+            }
+            renderAll();
+            if (openDayStr) openDay(openDayStr);
+        }
+
+        function initialMonth() {
+            const hoy = new Date();
+            const actual = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
+            if (monthInRange(actual)) return actual;
+            const first = data && data.meses[0];
+            if (!first) return actual;
+            // Antes del curso: el primer mes; después: el último.
+            const last = data.meses[data.meses.length - 1];
+            return actual < new Date(first.anio, first.mes - 1, 1) ? new Date(first.anio, first.mes - 1, 1) : new Date(last.anio, last.mes - 1, 1);
+        }
+
+        function monthInRange(d) {
+            return !!(data && d && data.meses.some(m => m.anio === d.getFullYear() && m.mes === d.getMonth() + 1));
+        }
+
+        function monthInfo(d) {
+            return data ? data.meses.find(m => m.anio === d.getFullYear() && m.mes === d.getMonth() + 1) : null;
+        }
+
+        // Eventos de un día que cumplen los filtros de etapa y tipo
+        function eventosFiltrados(dia) {
+            if (!dia) return [];
+            return dia.eventos.filter(e =>
+                (selectedEtapa === "ALL" || !e.etapas.length || e.etapas.includes(selectedEtapa)) &&
+                (selectedCat === "ALL" || e.cat === selectedCat));
+        }
+
+        // ---------------------------------------------------------------
+        // FILTROS
+        // ---------------------------------------------------------------
+        function restoreFilters() {
+            try {
+                const saved = JSON.parse(localStorage.getItem(FILTERS_KEY) || "null");
+                if (saved && (saved.etapa === "ALL" || ETAPAS.includes(saved.etapa))) selectedEtapa = saved.etapa;
+            } catch (e) {}
+        }
+
+        function saveFilters() {
+            try { localStorage.setItem(FILTERS_KEY, JSON.stringify({ etapa: selectedEtapa })); } catch (e) {}
+        }
+
+        function renderFilters() {
+            document.getElementById("etapa-filters").innerHTML = ["ALL", ...ETAPAS].map(e => `
+                <button type="button" onclick="selectEtapa('${e}')" class="chip ${selectedEtapa === e ? "on-azul" : ""}">${e === "ALL" ? "Todo el centro" : e}</button>`).join("");
+            document.getElementById("etapa-ayuda").classList.toggle("hidden", selectedEtapa === "ALL");
+            document.getElementById("cat-filters").innerHTML = [["ALL", { label: "Todos" }], ...Object.entries(CATS)].map(([k, c]) => `
+                <button type="button" onclick="selectCat('${k}')" class="chip ${selectedCat === k ? "on-verde" : ""}">
+                    ${c.color ? `<span class="punto" style="background:${c.color}"></span>` : ""}${c.label}
+                </button>`).join("");
+        }
+
+        function selectEtapa(e) { selectedEtapa = e; saveFilters(); renderFilters(); renderAll(); }
+        function selectCat(c) { selectedCat = c; renderFilters(); renderAll(); }
+
+        function renderLeyenda() {
+            const tipos = ["festivo", "vacaciones", "finde"].map(t => `
+                <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm border border-slate-300 ${TIPOS[t].cls}" style="border-color:${TIPOS[t].color}"></span>${TIPOS[t].label}</span>`).join("");
+            document.getElementById("leyenda").innerHTML = tipos +
+                `<span class="inline-flex items-center gap-1.5"><span class="inline-block bg-corp-blue text-white rounded-full px-1.5 text-[10px] font-bold">${new Date().getDate()}</span>Hoy</span>`;
+        }
+
+        // ---------------------------------------------------------------
+        // PINTAR
+        // ---------------------------------------------------------------
+        function renderAll(errorMsg) {
+            renderMonth(errorMsg);
+            renderProximos(errorMsg);
+            renderSearch();
+            lucide.createIcons();
+            updateNavSpy();
+        }
+
+        function eventoHtml(e, extra = "", conEtapas = false) {
+            const etapas = conEtapas && e.etapas.length ? `<span class="opacity-70"> · ${e.etapas.join(", ")}</span>` : "";
+            return `<div class="ev ev-${e.cat} ${extra}">${escapeHtml(e.texto)}${etapas}</div>`;
+        }
+
+        function tipoDia(dia) {
+            return dia && dia.tipo && TIPOS[dia.tipo] ? TIPOS[dia.tipo] : null;
+        }
+
+        function renderMonth(errorMsg) {
+            const grid = document.getElementById("calendar-grid");
+            const agenda = document.getElementById("calendar-agenda");
+            const display = document.getElementById("current-month-display");
+            const notes = document.getElementById("month-notes");
+
+            if (!data) {
+                display.textContent = errorMsg ? "Calendario" : "Cargando…";
+                document.getElementById("month-lema").textContent = "";
+                grid.innerHTML = Array.from({ length: 35 }, () => `<div class="bg-white dia-cell p-1"><div class="cargando h-3 w-6 ml-auto rounded"></div></div>`).join("");
+                agenda.innerHTML = `<div class="bg-white border border-slate-200 rounded-xl p-6 text-center text-sm text-slate-500">${escapeHtml(errorMsg || "Cargando el calendario…")}</div>`;
+                notes.classList.add("hidden");
+                document.getElementById("btn-prev").disabled = document.getElementById("btn-next").disabled = true;
+                return;
+            }
+
+            const year = currentDate.getFullYear(), month = currentDate.getMonth();
+            const info = monthInfo(currentDate);
+            display.textContent = `${new Date(year, month).toLocaleString("es", { month: "long" })} ${year}`;
+            document.getElementById("month-lema").textContent = info && info.lema ? `«${info.lema}»` : "";
+            document.getElementById("btn-prev").disabled = !monthInRange(new Date(year, month - 1, 1));
+            document.getElementById("btn-next").disabled = !monthInRange(new Date(year, month + 1, 1));
+
+            const todayStr = fechaStr(new Date());
+            let startingDay = new Date(year, month, 1).getDay() - 1;
+            if (startingDay === -1) startingDay = 6;
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            // Rejilla (escritorio)
+            let html = "";
+            for (let i = 0; i < startingDay; i++) html += `<div class="bg-slate-50"></div>`;
+            for (let day = 1; day <= daysInMonth; day++) {
+                const ds = fechaStr(new Date(year, month, day));
+                const dia = diasPorFecha.get(ds);
+                const tipo = tipoDia(dia);
+                const evs = eventosFiltrados(dia);
+                const shown = evs.slice(0, MAX_POR_CELDA);
+                const fondo = !dia ? "dia-sin" : tipo ? tipo.cls : "bg-white";
+                const fondoEspecial = dia && dia.tipo === "especial" && dia.color ? `style="background:#${dia.color}22"` : "";
+                const num = ds === todayStr
+                    ? `<span class="inline-block bg-corp-blue text-white rounded-full px-1.5 py-px">${day}</span>`
+                    : day;
+                html += `<button type="button" data-dia="${ds}" class="dia-cell ${fondo} p-1 flex flex-col gap-0.5 text-left" ${fondoEspecial}>
+                    <div class="w-full text-[11px] font-bold text-slate-400 text-right">${num}</div>
+                    ${shown.map(e => eventoHtml(e, "clamp2 w-full")).join("")}
+                    ${evs.length > shown.length ? `<div class="text-[10px] font-bold text-slate-500 px-1">+${evs.length - shown.length} más</div>` : ""}
+                </button>`;
+            }
+            const resto = (startingDay + daysInMonth) % 7;
+            if (resto) for (let i = resto; i < 7; i++) html += `<div class="bg-slate-50"></div>`;
+            grid.innerHTML = html;
+            grid.onclick = (ev) => { const c = ev.target.closest("[data-dia]"); if (c) openDay(c.dataset.dia); };
+
+            // Agenda (móvil): días con eventos o con un tipo especial (festivo, vacaciones…)
+            let ag = "";
+            for (let day = 1; day <= daysInMonth; day++) {
+                const ds = fechaStr(new Date(year, month, day));
+                const dia = diasPorFecha.get(ds);
+                const evs = eventosFiltrados(dia);
+                const tipo = tipoDia(dia);
+                const destacado = tipo && dia.tipo !== "finde" && dia.tipo !== "especial";
+                if (!evs.length && !destacado) continue;
+                ag += agendaDayHtml(ds, dia, evs, ds === todayStr);
+            }
+            if (!ag) ag = `<div class="bg-white border border-slate-200 rounded-xl p-6 text-center text-sm text-slate-500">No hay eventos este mes${selectedEtapa !== "ALL" || selectedCat !== "ALL" ? " con los filtros elegidos" : ""}.</div>`;
+            agenda.innerHTML = ag;
+            agenda.onclick = (ev) => { const c = ev.target.closest("[data-dia]"); if (c) openDay(c.dataset.dia); };
+
+            // Notas del mes que vienen en el documento
+            if (info && info.notas && info.notas.length) {
+                notes.innerHTML = info.notas.map(n => `<p class="flex gap-2"><i data-lucide="info" class="w-4 h-4 shrink-0"></i><span>${escapeHtml(n)}</span></p>`).join("");
+                notes.classList.remove("hidden");
+            } else {
+                notes.classList.add("hidden");
+            }
+        }
+
+        function agendaDayHtml(ds, dia, evs, isToday) {
+            const d = parseFecha(ds);
+            const tipo = tipoDia(dia);
+            const etiqueta = tipo && dia.tipo !== "especial" && dia.tipo !== "finde"
+                ? `<div class="text-[11px] font-bold mb-1" style="color:${tipo.color}">${tipo.label}</div>` : "";
+            return `
+                <div class="flex gap-3">
+                    <div class="w-12 shrink-0 text-center pt-1">
+                        <div class="text-[10px] uppercase font-bold text-slate-400">${d.toLocaleDateString("es", { weekday: "short" }).replace(".", "")}</div>
+                        <div class="mx-auto mt-0.5 flex items-center justify-center w-9 h-9 rounded-full text-lg font-bold ${isToday ? "bg-corp-blue text-white" : "text-slate-700"}">${d.getDate()}</div>
+                    </div>
+                    <button type="button" data-dia="${ds}" class="flex-1 min-w-0 text-left bg-white border border-slate-200 rounded-xl p-3 shadow-sm space-y-1 ${tipo ? tipo.cls : ""}" ${tipo && tipo.color ? `style="border-left:4px solid ${tipo.color}"` : ""}>
+                        ${etiqueta}
+                        ${evs.map(e => eventoHtml(e, "text-xs py-1 px-2", true)).join("")}
+                    </button>
+                </div>`;
+        }
+
+        function renderProximos(errorMsg) {
+            const list = document.getElementById("proximos-list");
+            if (!data) { list.innerHTML = `<p class="text-sm text-slate-500">${escapeHtml(errorMsg || "Cargando…")}</p>`; return; }
+            const hoy = new Date();
+            let html = "";
+            for (let i = 0; i < 14; i++) {
+                const ds = fechaStr(new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate() + i));
+                const dia = diasPorFecha.get(ds);
+                const evs = eventosFiltrados(dia);
+                const tipo = tipoDia(dia);
+                if (!evs.length && !(tipo && (dia.tipo === "festivo" || dia.tipo === "vacaciones"))) continue;
+                html += agendaDayHtml(ds, dia, evs, i === 0);
+            }
+            list.innerHTML = html || `<p class="text-sm text-slate-500">No hay eventos en los próximos 14 días${selectedEtapa !== "ALL" || selectedCat !== "ALL" ? " con los filtros elegidos" : ""}.</p>`;
+            list.onclick = (ev) => { const c = ev.target.closest("[data-dia]"); if (c) openDay(c.dataset.dia); };
+        }
+
+        // Búsqueda en todo el curso (respeta los filtros de etapa y tipo)
+        function renderSearch() {
+            const box = document.getElementById("resultados");
+            const vista = document.getElementById("vista-mes");
+            const q = sinTildes(searchText.trim());
+            if (!q || !data) { box.classList.add("hidden"); vista.classList.remove("hidden"); return; }
+            const palabras = q.split(/\s+/);
+            const res = [];
+            for (const dia of data.dias) {
+                const evs = eventosFiltrados(dia).filter(e => { const t = sinTildes(e.texto); return palabras.every(p => t.includes(p)); });
+                if (evs.length) res.push([dia, evs]);
+            }
+            const n = res.reduce((s, [, e]) => s + e.length, 0);
+            box.innerHTML = `
+                <div class="flex items-center justify-between gap-2">
+                    <h2 class="text-sm font-bold text-slate-700">${n} resultado${n === 1 ? "" : "s"} para «${escapeHtml(searchText.trim())}»</h2>
+                    <button type="button" onclick="clearSearch()" class="text-xs font-semibold text-corp-blue hover:underline">Volver al calendario</button>
+                </div>
+                ${res.map(([dia, evs]) => `
+                    <button type="button" data-dia="${dia.fecha}" class="w-full text-left flex gap-3 items-start p-2 rounded-lg hover:bg-slate-50 border border-transparent hover:border-slate-200">
+                        <div class="w-28 shrink-0 text-xs font-semibold text-slate-500 pt-0.5 first-letter:uppercase">${escapeHtml(parseFecha(dia.fecha).toLocaleDateString("es", { weekday: "short", day: "numeric", month: "short", year: "2-digit" }))}</div>
+                        <div class="flex-1 min-w-0 space-y-1">${evs.map(e => eventoHtml(e, "text-xs py-1 px-2", true)).join("")}</div>
+                    </button>`).join("") || `<p class="text-sm text-slate-500">No se ha encontrado nada.</p>`}`;
+            box.onclick = (ev) => { const c = ev.target.closest("[data-dia]"); if (c) openDay(c.dataset.dia); };
+            box.classList.remove("hidden");
+            vista.classList.add("hidden");
+        }
+
+        function clearSearch() {
+            searchText = "";
+            document.getElementById("buscar").value = "";
+            renderSearch();
+        }
+
+        function changeMonth(d) {
+            const next = new Date(currentDate.getFullYear(), currentDate.getMonth() + d, 1);
+            if (!monthInRange(next)) return;
+            currentDate = next;
+            renderAll();
+        }
+
+        function goToday() {
+            if (!data) return;
+            clearSearch();
+            currentDate = initialMonth();
+            renderAll();
+            const ds = fechaStr(new Date());
+            if (diasPorFecha.has(ds) && window.matchMedia("(min-width: 768px)").matches) openDay(ds);
+        }
+
+        // ---------------------------------------------------------------
+        // DETALLE DE UN DÍA
+        // ---------------------------------------------------------------
+        function openDay(ds) {
+            openDayStr = ds;
+            const dia = diasPorFecha.get(ds);
+            const tipo = tipoDia(dia);
+            document.getElementById("day-title").textContent = fechaLarga(ds);
+            const tipoEl = document.getElementById("day-tipo");
+            tipoEl.textContent = tipo && dia.tipo !== "especial" ? tipo.label : "";
+            tipoEl.style.color = tipo && tipo.color ? tipo.color : "";
+
+            const evs = eventosFiltrados(dia);
+            const ocultos = dia ? dia.eventos.length - evs.length : 0;
+            let body = "";
+            if (!dia) body = `<p class="text-slate-500">Este día no aparece en el documento del calendario.</p>`;
+            else if (!dia.eventos.length) body = `<p class="text-slate-500">No hay nada anotado este día.</p>`;
+            else body = evs.map(e => `
+                <div class="ev ev-${e.cat} !text-sm !px-3 !py-2 !rounded-lg">
+                    <div>${escapeHtml(e.texto)}</div>
+                    <div class="text-[11px] opacity-75 mt-0.5">${CATS[e.cat].label}${e.etapas.length ? " · " + e.etapas.join(", ") : " · Todo el centro"}</div>
+                </div>`).join("");
+            if (ocultos > 0) body += `<p class="text-[11px] text-slate-400">${ocultos} evento${ocultos === 1 ? "" : "s"} más oculto${ocultos === 1 ? "" : "s"} por los filtros. <button type="button" class="text-corp-blue font-semibold hover:underline" onclick="selectEtapa('ALL'); selectCat('ALL'); openDay('${ds}')">Ver todo</button></p>`;
+            document.getElementById("day-body").innerHTML = body;
+            document.getElementById("day-modal").classList.remove("hidden");
+            lucide.createIcons();
+        }
+
+        function stepDay(n) {
+            const d = parseFecha(openDayStr);
+            d.setDate(d.getDate() + n);
+            const ds = fechaStr(d);
+            const m = new Date(d.getFullYear(), d.getMonth(), 1);
+            if (!monthInRange(m)) return;
+            if (m.getTime() !== currentDate.getTime()) { currentDate = m; renderAll(); }
+            openDay(ds);
+        }
+
+        function closeDay() {
+            openDayStr = null;
+            document.getElementById("day-modal").classList.add("hidden");
+        }
+
+        document.addEventListener("keydown", (ev) => {
+            const abierto = !document.getElementById("day-modal").classList.contains("hidden");
+            if (ev.key === "Escape") { closeDay(); document.getElementById("install-modal").classList.add("hidden"); }
+            else if (abierto && ev.key === "ArrowLeft") stepDay(-1);
+            else if (abierto && ev.key === "ArrowRight") stepDay(1);
+        });
+
+        // ---------------------------------------------------------------
+        // SUSCRIPCIÓN
+        // ---------------------------------------------------------------
+        function icsFor(etapa) {
+            return ICS_URL + (etapa ? "?etapa=" + encodeURIComponent(etapa) : "");
+        }
+
+        function renderSubscribeList() {
+            const items = [["", "Todo el centro", "bg-corp-blue"], ...ETAPAS.map(e => [e, e, "bg-corp-green"])];
+            document.getElementById("calendar-subscribe-list").innerHTML = items.map(([etapa, label, dot]) => {
+                const https = icsFor(etapa);
+                const webcal = https.replace(/^https?:/, "webcal:");
+                const googleUrl = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(webcal)}`;
+                return `
+                <div class="flex items-center justify-between p-3 rounded-lg border border-slate-200">
+                    <div class="flex items-center gap-2.5">
+                        <span class="w-2.5 h-2.5 rounded-full ${dot}"></span>
+                        <span class="text-xs font-bold text-slate-700">${label}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <a href="${googleUrl}" target="_blank" rel="noopener noreferrer" title="Añadir a Google Calendar" class="text-[10px] font-semibold px-2 py-1 rounded border border-slate-200 text-slate-600 hover:border-corp-blue hover:text-corp-blue">Google</a>
+                        <a href="${webcal}" title="Suscribirse por iCal (Apple / Outlook)" class="text-[10px] font-semibold px-2 py-1 rounded border border-slate-200 text-slate-600 hover:border-corp-blue hover:text-corp-blue">iCal</a>
+                    </div>
+                </div>`;
+            }).join("");
+        }
+
+        async function copySubscribeLink() {
+            try {
+                await navigator.clipboard.writeText(icsFor(""));
+                showToast("Enlace copiado. En Outlook: Agregar calendario › Suscribirse desde web.", "success", 4000);
+            } catch (e) {
+                prompt("Copia este enlace:", icsFor(""));
+            }
+        }
+
+        // ---------------------------------------------------------------
+        // SIN CONEXIÓN, INSTALAR (PWA) Y MENÚ
+        // ---------------------------------------------------------------
+        function showOfflineBanner() {
+            const el = document.getElementById("offline-banner");
+            const cached = loadCache();
+            if (cached) {
+                const when = new Date(cached.ts).toLocaleString("es", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+                el.textContent = `Sin conexión: se muestra el calendario guardado en este dispositivo (${when}).`;
+            } else {
+                el.textContent = "Sin conexión: no se puede cargar el calendario todavía.";
+            }
+            el.classList.remove("hidden");
+        }
+
+        function hideOfflineBanner() {
+            document.getElementById("offline-banner").classList.add("hidden");
+        }
+
+        function registerServiceWorker() {
+            if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+        }
+
+        let deferredInstallPrompt = null;
+
+        function isStandalone() {
+            return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+        }
+
+        function isIOS() {
+            return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+        }
+
+        function setInstallButtonVisible(visible) {
+            document.querySelectorAll(".instalar").forEach((el) => { el.hidden = !visible; });
+        }
+
+        function setupInstallPrompt() {
+            if (isStandalone()) return;
+            window.addEventListener("beforeinstallprompt", (ev) => {
+                ev.preventDefault();
+                deferredInstallPrompt = ev;
+                setInstallButtonVisible(true);
+            });
+            window.addEventListener("appinstalled", () => {
+                deferredInstallPrompt = null;
+                setInstallButtonVisible(false);
+            });
+            if (isIOS()) setInstallButtonVisible(true);
+        }
+
+        async function installApp() {
+            if (deferredInstallPrompt) {
+                deferredInstallPrompt.prompt();
+                try { await deferredInstallPrompt.userChoice; } catch (e) {}
+                deferredInstallPrompt = null;
+                setInstallButtonVisible(false);
+                return;
+            }
+            document.getElementById("install-modal").classList.remove("hidden");
+        }
+
+        document.addEventListener("click", (ev) => {
+            if (ev.target.closest(".instalar")) { ev.preventDefault(); installApp(); }
+        });
+
+        setupInstallPrompt();
+
+        // Menú superior: marca la sección visible
+        let updateNavSpy = () => {};
+        function setupNavSpy() {
+            const links = [...document.querySelectorAll("#tabs a[data-sec]")];
+            const mark = (id) => links.forEach((a) => a.classList.toggle("activa", a.dataset.sec === id));
+            let pending = false;
+            const update = () => {
+                pending = false;
+                const scrollable = document.documentElement.scrollHeight > window.innerHeight + 40;
+                const atBottom = scrollable && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+                let current = links[0].dataset.sec;
+                for (const a of links) {
+                    const sec = document.getElementById(a.dataset.sec);
+                    if (sec && sec.getBoundingClientRect().top <= 120) current = a.dataset.sec;
+                }
+                mark(atBottom ? links[links.length - 1].dataset.sec : current);
+            };
+            const schedule = () => { if (!pending) { pending = true; requestAnimationFrame(update); } };
+            window.addEventListener("scroll", schedule, { passive: true });
+            window.addEventListener("resize", schedule);
+            links.forEach((a) => a.addEventListener("click", () => mark(a.dataset.sec)));
+            updateNavSpy = schedule;
+            update();
+        }
+
+        // ---------------------------------------------------------------
+        // IMPRESIÓN (mes visible, A4 apaisado, con los filtros elegidos)
+        // ---------------------------------------------------------------
+        async function printMonth() {
+            if (!data) return;
+            const year = currentDate.getFullYear(), month = currentDate.getMonth();
+            const info = monthInfo(currentDate);
+            const monthLabel = `${new Date(year, month).toLocaleString("es", { month: "long" })} ${year}`;
+            let startingDay = new Date(year, month, 1).getDay() - 1;
+            if (startingDay === -1) startingDay = 6;
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const cells = [];
+            for (let i = 0; i < startingDay; i++) cells.push(null);
+            for (let d = 1; d <= daysInMonth; d++) cells.push(d);
+            while (cells.length % 7) cells.push(null);
+            const weeks = [];
+            for (let i = 0; i < cells.length; i += 7) weeks.push(cells.slice(i, i + 7));
+            const maxPerDay = weeks.length <= 4 ? 9 : weeks.length === 5 ? 7 : 6;
+
+            const cell = (day) => {
+                if (!day) return `<div class="print-day-cell" style="background:#f8fafc"></div>`;
+                const ds = fechaStr(new Date(year, month, day));
+                const dia = diasPorFecha.get(ds);
+                const tipo = tipoDia(dia);
+                const evs = eventosFiltrados(dia);
+                const shown = evs.slice(0, maxPerDay);
+                return `<div class="print-day-cell ${tipo ? tipo.cls : ""}"><div class="print-day-number">${day}</div>
+                    ${shown.map(e => `<div class="ev ev-${e.cat}">${escapeHtml(e.texto)}</div>`).join("")}
+                    ${evs.length > shown.length ? `<div class="print-more">+${evs.length - shown.length} más</div>` : ""}</div>`;
+            };
+            const filtro = [selectedEtapa === "ALL" ? "Todo el centro" : selectedEtapa, selectedCat === "ALL" ? "" : CATS[selectedCat].label].filter(Boolean).join(" — ");
+            document.getElementById("print-view").innerHTML = `
+                <div class="print-page">
+                    <div class="print-header">
+                        <img src="logo.svg" alt="Salesianas Nervión">
+                        <div>
+                            <div class="print-header-school">Escuelas Salesianas María Auxiliadora · Nervión (Sevilla)</div>
+                            <div class="print-header-title" style="text-transform:capitalize">Calendario del curso — ${monthLabel}${info && info.lema ? ` <span style="text-transform:none;color:#b4be00">«${escapeHtml(info.lema)}»</span>` : ""}</div>
+                        </div>
+                        <div class="print-header-filter">${escapeHtml(filtro)}</div>
+                    </div>
+                    <div class="print-weekday-row">${["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"].map(d => `<div class="print-week-header">${d}</div>`).join("")}</div>
+                    <div class="print-weeks">${weeks.map(w => `<div class="print-week-grid">${w.map(cell).join("")}</div>`).join("")}</div>
+                    ${info && info.notas.length ? `<div class="print-notes">${info.notas.map(escapeHtml).join("<br>")}</div>` : ""}
+                </div>`;
+            await Promise.all([...document.querySelectorAll("#print-view img")].map((img) => img.decode().catch(() => {})));
+            window.print();
+        }
+    </script>
+</body>
+</html>
