@@ -1,4 +1,4 @@
-const VERSION = "v1";
+const VERSION = "v2";
 const SHELL_CACHE = `calendario-shell-${VERSION}`;
 const CDN_CACHE = `calendario-cdn-${VERSION}`;
 

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Calendario | Escuelas Salesianas María Auxiliadora · Nervión (Sevilla)</title>
-    <meta name="description" content="Calendario del curso del colegio: festivos, evaluaciones, reuniones, pastoral y actividades de todas las etapas, siempre al día.">
+    <title>Calendario del curso | Escuelas Salesianas María Auxiliadora · Nervión (Sevilla)</title>
+    <meta name="description" content="Calendario del curso del colegio: festivos, evaluaciones, horas no lectivas, reuniones, pastoral y actividades de todas las etapas, siempre al día.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -47,14 +47,14 @@
     <meta property="og:type" content="website">
     <meta property="og:locale" content="es_ES">
     <meta property="og:site_name" content="Escuelas Salesianas María Auxiliadora">
-    <meta property="og:title" content="Calendario | Escuelas Salesianas María Auxiliadora · Nervión (Sevilla)">
-    <meta name="twitter:title" content="Calendario | Escuelas Salesianas María Auxiliadora · Nervión (Sevilla)">
-    <meta property="og:description" content="Calendario del curso del colegio: festivos, evaluaciones, reuniones, pastoral y actividades de todas las etapas, siempre al día.">
+    <meta property="og:title" content="Calendario del curso | Escuelas Salesianas María Auxiliadora · Nervión (Sevilla)">
+    <meta name="twitter:title" content="Calendario del curso | Escuelas Salesianas María Auxiliadora · Nervión (Sevilla)">
+    <meta property="og:description" content="Calendario del curso del colegio: festivos, evaluaciones, horas no lectivas, reuniones, pastoral y actividades de todas las etapas, siempre al día.">
     <meta property="og:url" content="https://calendario-nervion.vercel.app/">
     <meta property="og:image" content="https://calendario-nervion.vercel.app/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Calendario | Escuelas Salesianas María Auxiliadora · Nervión (Sevilla)">
+    <meta property="og:image:alt" content="Calendario del curso | Escuelas Salesianas María Auxiliadora · Nervión (Sevilla)">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://calendario-nervion.vercel.app/og-image.png">
 
@@ -84,7 +84,38 @@
             .marca .logo { height: 32px; } .marca h1 { font-size: 16px; padding-left: 10px; } .marca { gap: 10px; }
             #tabs > a { padding: 12px 10px; font-size: 14px; }
             .tab-largo { display: none; }
-            .usuario .doc-largo { display: none; }
+            .franja .doc-largo { display: none; }
+        }
+
+        /* Portada como en el portal de utilidades, en naranja (apartado «General»), igual que Reserva de espacios */
+        .top.solo-logo { justify-content: center; border-bottom: 0; padding: 12px 16px; }
+        .top.solo-logo .logo { height: 64px; }
+        .franja { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 8px 16px; background: #ee712a; color: #fff; }
+        .franja .quien { font-size: 13px; font-weight: 600; text-shadow: 0 1px 2px rgba(0,0,0,.25); }
+        .franja-acc { display: flex; gap: 8px; flex-wrap: wrap; margin-left: auto; }
+        .franja-btn { display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,.75);
+            background: rgba(255,255,255,.14); color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.2); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; text-decoration: none; }
+        .franja-btn:hover { background: #fff; color: #b9530f; text-shadow: none; }
+        .franja-btn[hidden] { display: none; }
+        .franja-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+        .presenta { padding: 22px max(16px, calc((100% - 1280px) / 2 + 16px)); }
+        .presenta-sup { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 12px; }
+        .cartel { display: inline-flex; align-items: center; gap: .45rem; background: rgba(238, 113, 42, .14); color: #b9530f; font-weight: 700; font-size: .78rem;
+            letter-spacing: .06em; text-transform: uppercase; padding: .3rem .8rem; border-radius: 999px; }
+        .cartel a { display: inline-flex; align-items: center; gap: .3rem; color: inherit; text-decoration: none; border-radius: 4px; }
+        .cartel a:hover { text-decoration: underline; text-underline-offset: 3px; }
+        .cartel a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+        .cartel svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+        .cartel .sep { opacity: .6; }
+        .presenta-cab { display: flex; align-items: center; gap: 16px; }
+        .presenta-ico { flex: none; width: 56px; height: 56px; border-radius: 14px; display: grid; place-items: center; background: rgba(238, 113, 42, .14); color: #d35a15; }
+        .presenta-ico svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+        .presenta h1 { margin: 0 0 4px; font-size: 1.6rem; line-height: 1.2; font-weight: 700; color: #d35a15; }
+        .presenta-cab p { margin: 0; color: var(--suave); max-width: 70ch; }
+        .presenta + nav { border-top: 2px solid rgba(238, 113, 42, .5); }
+        @media (max-width: 560px) {
+            .top.solo-logo .logo { height: 54px; }
+            .presenta-cab { align-items: flex-start; } .presenta h1 { font-size: 1.3rem; } .presenta-ico { width: 46px; height: 46px; }
         }
         @media (display-mode: standalone) {
             .instalar { display: none !important; }
@@ -112,6 +143,7 @@
         .ev-pastoral { background: #f3e8ff; border-color: #d8b4fe; color: #581c87; }
         .ev-familias { background: #fef3c7; border-color: #fcd34d; color: #78350f; }
         .ev-actividad { background: #dcfce7; border-color: #86efac; color: #14532d; }
+        .ev-horas { background: #ccfbf1; border-color: #5eead4; color: #134e4a; }
         .ev-festivo { background: #009abb; border-color: #007791; color: #fff; font-weight: 600; }
         .ev-otro { background: #f1f5f9; border-color: #cbd5e1; color: #1e293b; }
         .clamp2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -168,14 +200,28 @@
     <div id="toast-container"></div>
 
     <div id="app-view" class="flex flex-col min-h-screen">
-    <!-- CABECERA Y MENÚ (mismo diseño que Control de baños y Biblioteca) -->
-    <header class="top no-print">
-        <div class="marca"><img class="logo" src="logo.svg" alt="Salesianas Nervión"><h1>Calendario <span id="titulo-curso"></span></h1></div>
-        <div class="usuario">
-            <a id="enlace-documento" href="#" target="_blank" rel="noopener noreferrer" hidden>Ver documento <span class="doc-largo">original</span></a>
-            <a href="#" class="instalar" hidden>Instalar app</a>
-        </div>
+    <!-- CABECERA (como las webs filiales del portal de utilidades, en naranja: apartado «General») -->
+    <header class="top solo-logo no-print">
+        <div class="marca"><img class="logo" src="logo.svg" alt="Salesianas Nervión"></div>
     </header>
+    <div class="franja no-print">
+        <span class="quien" id="titulo-curso" data-curso>Curso 2026-2027</span>
+        <div class="franja-acc">
+            <a id="enlace-documento" class="franja-btn" href="#" target="_blank" rel="noopener noreferrer" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>Ver documento <span class="doc-largo">original</span></a>
+            <button type="button" class="franja-btn instalar" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Instalar como app</button>
+        </div>
+    </div>
+    <script>/* Curso escolar: cambia solo cada 1 de septiembre (luego se toma del documento) */document.querySelectorAll("[data-curso]").forEach(function(e){var d=new Date(),y=d.getFullYear()-(d.getMonth()<8?1:0);e.textContent="Curso "+y+"-"+(y+1);});</script>
+    <section class="presenta no-print">
+        <div class="presenta-sup"><div class="cartel" role="navigation" aria-label="Estás en"><a href="https://claustro-utilidades.vercel.app/" title="Ir al portal de utilidades del profesorado"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7M5 10v10h14V10"/></svg>Utilidades</a><span class="sep" aria-hidden="true">|</span><a href="https://claustro-utilidades.vercel.app/#apGeneral" title="Ir al apartado «General» del portal">General</a></div></div>
+        <div class="presenta-cab">
+            <span class="presenta-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M7.5 14h.01M12 14h.01M16.5 14h.01M7.5 17.5h.01M12 17.5h.01" stroke-width="2.6"/></svg></span>
+            <div>
+                <h1>Calendario del curso</h1>
+                <p>Festivos, evaluaciones, horas no lectivas, reuniones, pastoral y actividades de todas las etapas, siempre al día.</p>
+            </div>
+        </div>
+    </section>
     <nav id="tabs" class="no-print" aria-label="Secciones de la página">
         <a href="#calendario" data-sec="calendario" class="activa">Calendario</a>
         <a href="#proximos" data-sec="proximos">Próximos días</a>
@@ -198,11 +244,12 @@
                 <label class="block text-xs font-bold uppercase text-slate-500 tracking-wider mb-2">2. Tipo</label>
                 <div class="flex flex-wrap gap-2" id="cat-filters"></div>
             </div>
+            <div id="horas-info" class="hidden border border-teal-200 bg-teal-50 text-teal-900 rounded-lg p-3 text-xs space-y-1"></div>
             <div class="border-t border-slate-100 pt-3">
                 <label for="buscar" class="block text-xs font-bold uppercase text-slate-500 tracking-wider mb-2">3. Buscar en todo el curso</label>
                 <div class="relative">
                     <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
-                    <input id="buscar" type="search" autocomplete="off" placeholder="Ej.: claustro, evaluación, Don Bosco, 4º ESO…" class="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-sky-200 focus:border-corp-blue">
+                    <input id="buscar" type="search" autocomplete="off" placeholder="Ej.: claustro, tutorías, evaluación, Don Bosco, 4º ESO…" class="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-sky-200 focus:border-corp-blue">
                 </div>
             </div>
         </section>
@@ -338,6 +385,7 @@
         const ETAPAS = ["Infantil", "Primaria", "ESO", "Bachillerato", "FP"];
         const CATS = {
             evaluacion: { label: "Evaluación y exámenes", color: "#fb7185" },
+            horas: { label: "Horas no lectivas", color: "#14b8a6" },
             reunion: { label: "Reuniones y formación", color: "#38bdf8" },
             pastoral: { label: "Pastoral", color: "#c084fc" },
             familias: { label: "Familias", color: "#fbbf24" },
@@ -464,7 +512,7 @@
             diasPorFecha = new Map(data.dias.map(d => [d.fecha, d]));
             if (prevMonth === null || !monthInRange(currentDate)) currentDate = initialMonth();
 
-            document.getElementById("titulo-curso").innerHTML = `<span class="tab-largo">del curso </span>${escapeHtml(data.curso || "")}`;
+            if (data.curso) document.getElementById("titulo-curso").textContent = `Curso ${data.curso}`;
             const link = document.getElementById("enlace-documento");
             if (data.documento) { link.href = data.documento; link.hidden = false; }
             const act = document.getElementById("actualizado");
@@ -472,6 +520,7 @@
                 const when = new Date(data.modificado).toLocaleString("es", { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" });
                 act.textContent = `Última modificación del documento: ${when}.`;
             }
+            renderHorasInfo();
             renderAll();
             if (openDayStr) openDay(openDayStr);
         }
@@ -528,7 +577,18 @@
         }
 
         function selectEtapa(e) { selectedEtapa = e; saveFilters(); renderFilters(); renderAll(); }
-        function selectCat(c) { selectedCat = c; renderFilters(); renderAll(); }
+        function selectCat(c) { selectedCat = c; renderFilters(); renderHorasInfo(); renderAll(); }
+
+        // Horario general de las horas no lectivas y enlace a los PDF del Claustro (al filtrar por ese tipo)
+        function renderHorasInfo() {
+            const box = document.getElementById("horas-info");
+            const h = data && data.horas;
+            if (selectedCat !== "horas" || !h || (!h.horario.length && !h.documentos.length)) { box.classList.add("hidden"); return; }
+            box.innerHTML = `<p class="font-bold">Horario de las horas no lectivas</p>` +
+                h.horario.map(x => `<p><b>${escapeHtml(x.etapas)}:</b> ${escapeHtml(x.texto)}</p>`).join("") +
+                (h.documentos.length ? `<p class="pt-1">Documento${h.documentos.length === 1 ? "" : "s"}: ${h.documentos.map(d => `<a class="font-semibold underline" href="${escapeHtml(d.enlace)}" target="_blank" rel="noopener noreferrer">${escapeHtml(d.nombre)}</a>`).join(" · ")}</p>` : "");
+            box.classList.remove("hidden");
+        }
 
         function renderLeyenda() {
             const tipos = ["festivo", "vacaciones", "finde"].map(t => `

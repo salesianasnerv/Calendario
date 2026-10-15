@@ -1,0 +1,72 @@
+{
+  "_ayuda": "Detalle de las horas no lectivas (complementarias) que se suma al calendario con la etiqueta «Horas no lectivas». Copiado del PDF del Claustro de cada trimestre. Cada tarea: fecha (AAAA-MM-DD), texto y etapas (Infantil, Primaria, ESO, Bachillerato, FP; si se omite, es para todo el centro).",
+  "documentos": [
+    { "nombre": "1.er trimestre 2026-2027", "enlace": "https://salesianas.sharepoint.com/:b:/s/E-NER/Claustro/IQDNqXTgzrtVQLsZtPBkRIJtASWLzlgQoh_vIFxHOYLHRbE?e=dawbFC" }
+  ],
+  "horario": [
+    { "etapas": "Infantil y Primaria", "texto": "Lunes de 16:00 a 19:00 y martes de 16:00 a 19:30" },
+    { "etapas": "ESO, Bachillerato y FP", "texto": "Martes de 16:00 a 19:00" }
+  ],
+  "tareas": [
+    { "fecha": "2026-09-10", "etapas": ["Infantil"], "texto": "Reunión de familias de inicio de curso (coordinadores)" },
+    { "fecha": "2026-09-16", "etapas": ["Infantil", "Primaria"], "texto": "Reunión de familias de inicio de curso, en lugar del lunes 21 (coordinadores)" },
+    { "fecha": "2026-09-21", "etapas": ["Infantil", "Primaria"], "texto": "Sin horas no lectivas: se cambian por la reunión de familias del miércoles 16" },
+
+    { "fecha": "2026-09-22", "etapas": ["Infantil", "Primaria"], "texto": "Reunión de etapa: revisión de los primeros días, orientación, convivencia, pastoral, Nadando y creciendo, apadrinamiento educativo" },
+    { "fecha": "2026-09-22", "etapas": ["Infantil", "Primaria"], "texto": "Tutorías (18:00 a 19:30)" },
+    { "fecha": "2026-09-22", "etapas": ["ESO"], "texto": "Reunión de familias: 1º ESO 16:30, 2º ESO 17:00, 3º ESO 17:30 (tutores y coordinación)" },
+    { "fecha": "2026-09-22", "etapas": ["ESO", "Bachillerato"], "texto": "Profesorado no tutor: PAC" },
+    { "fecha": "2026-09-22", "etapas": ["FP"], "texto": "Reunión de etapa: revisión de los primeros días, pastoral, convivencia…" },
+    { "fecha": "2026-09-22", "etapas": ["FP"], "texto": "Tutorías (18:00 a 19:00)" },
+    { "fecha": "2026-09-23", "etapas": ["ESO", "Bachillerato"], "texto": "Reunión de familias: 4º ESO 16:30, 1º Bachillerato 17:00, 2º Bachillerato 17:30 (tutores y coordinación)" },
+
+    { "fecha": "2026-09-29", "etapas": ["Infantil", "Primaria", "ESO"], "texto": "Equipos de trabajo" },
+    { "fecha": "2026-09-29", "etapas": ["Primaria"], "texto": "Reunión de familias de Nadando y creciendo 1º y 2º EPO (17:30)" },
+    { "fecha": "2026-09-29", "etapas": ["Infantil", "Primaria"], "texto": "Tutorías (18:00 a 19:30)" },
+    { "fecha": "2026-09-29", "etapas": ["ESO"], "texto": "Tutorías (18:00 a 19:00)" },
+    { "fecha": "2026-09-30", "etapas": ["FP"], "texto": "Equipos de trabajo" },
+    { "fecha": "2026-09-30", "etapas": ["FP"], "texto": "Reunión de familias de inicio de curso: 1º a las 17:30 y 2º a las 18:00" },
+
+    { "fecha": "2026-10-02", "texto": "Horas no lectivas del martes de feria (se pasan a este viernes)" },
+    { "fecha": "2026-10-06", "etapas": ["Infantil"], "texto": "Coordinación por nivel" },
+    { "fecha": "2026-10-06", "etapas": ["Primaria"], "texto": "Evaluación inicial" },
+    { "fecha": "2026-10-06", "etapas": ["ESO", "Bachillerato"], "texto": "Salida complementaria de la 1ª evaluación: Hornachuelos (tutores y coordinación)" },
+    { "fecha": "2026-10-06", "etapas": ["FP"], "texto": "Familias profesionales" },
+    { "fecha": "2026-10-12", "etapas": ["Infantil"], "texto": "Evaluación inicial" },
+    { "fecha": "2026-10-12", "etapas": ["Primaria"], "texto": "Coordinación por ciclo" },
+    { "fecha": "2026-10-13", "etapas": ["Infantil", "Primaria"], "texto": "Reunión de etapa: seguimiento del alumnado" },
+    { "fecha": "2026-10-13", "etapas": ["Infantil", "Primaria"], "texto": "Tutorías (18:00 a 19:30)" },
+    { "fecha": "2026-10-13", "etapas": ["ESO", "Bachillerato", "FP"], "texto": "Evaluación inicial (coordinación y tutores)" },
+    { "fecha": "2026-10-13", "etapas": ["ESO", "Bachillerato", "FP"], "texto": "Tutorías (18:00 a 19:00)" },
+    { "fecha": "2026-10-20", "texto": "Equipos de trabajo" },
+    { "fecha": "2026-10-20", "etapas": ["Primaria", "ESO", "Bachillerato", "FP"], "texto": "Reunión de familias de los viajes (6º EPO, 1º ESO, 4º ESO, 1º Bachillerato y FP), 18:00" },
+    { "fecha": "2026-10-20", "etapas": ["Infantil", "Primaria"], "texto": "Tutorías (18:00 a 19:30)" },
+    { "fecha": "2026-10-20", "etapas": ["ESO", "Bachillerato", "FP"], "texto": "Tutorías (18:00 a 19:00)" },
+    { "fecha": "2026-10-27", "texto": "Claustro: PAC y programaciones" },
+    { "fecha": "2026-10-27", "etapas": ["Infantil", "Primaria"], "texto": "Tutorías (18:00 a 19:30)" },
+    { "fecha": "2026-10-27", "etapas": ["ESO", "Bachillerato", "FP"], "texto": "Tutorías (18:00 a 19:00)" },
+    { "fecha": "2026-10-27", "texto": "Entrega de las programaciones didácticas y publicación en la web (Dirección)" },
+    { "fecha": "2026-10-27", "texto": "Aprobación del PAC" },
+
+    { "fecha": "2026-11-03", "texto": "Tutorías y acompañamiento" },
+    { "fecha": "2026-11-09", "etapas": ["Infantil", "Primaria"], "texto": "Te invito a mi cole (coordinadores)" },
+    { "fecha": "2026-11-10", "texto": "Equipos de trabajo" },
+    { "fecha": "2026-11-10", "texto": "Reunión de padres y madres delegados (18:00)" },
+    { "fecha": "2026-11-10", "texto": "Tutorías (18:00 a 19:30)" },
+    { "fecha": "2026-11-17", "texto": "Reunión de etapa: seguimiento del alumnado" },
+    { "fecha": "2026-11-17", "etapas": ["Infantil", "Primaria"], "texto": "Tutorías (18:00 a 19:30)" },
+    { "fecha": "2026-11-17", "etapas": ["ESO", "Bachillerato", "FP"], "texto": "Tutorías (18:00 a 19:00)" },
+    { "fecha": "2026-11-23", "etapas": ["Infantil", "Primaria"], "texto": "Coordinación por ciclo / nivel" },
+    { "fecha": "2026-11-23", "etapas": ["Infantil", "Primaria"], "texto": "Tutorías (18:00 a 19:00 o según el horario de evaluación)" },
+    { "fecha": "2026-11-24", "texto": "Retiro de Adviento (Pastoral)" },
+
+    { "fecha": "2026-12-01", "etapas": ["Infantil", "Primaria", "ESO", "Bachillerato"], "texto": "Sesión de evaluación NEAE" },
+    { "fecha": "2026-12-01", "etapas": ["Infantil", "Primaria"], "texto": "Tutorías (18:30 a 19:30)" },
+    { "fecha": "2026-12-01", "etapas": ["ESO", "Bachillerato"], "texto": "Tutorías (18:00 a 19:00)" },
+    { "fecha": "2026-12-01", "etapas": ["FP"], "texto": "Sesión de la 1ª evaluación de FP" },
+    { "fecha": "2026-12-15", "etapas": ["Infantil", "Primaria", "ESO", "Bachillerato"], "texto": "Sesión de evaluación del 1.er trimestre" },
+    { "fecha": "2026-12-15", "etapas": ["FP"], "texto": "Familias profesionales" },
+    { "fecha": "2026-12-15", "etapas": ["FP"], "texto": "Tutorías (18:00 a 19:00)" },
+    { "fecha": "2026-12-21", "texto": "Fiesta de Navidad: villancicos" }
+  ]
+}

@@ -12,6 +12,9 @@ Web del calendario del curso de las Escuelas Salesianas María Auxiliadora (Nerv
 - Filtros por **etapa** (Infantil, Primaria, ESO, Bachillerato, FP) y por **tipo** (evaluación, reuniones, pastoral,
   familias, actividades, festivos). La etapa se deduce del texto del evento (INF, EPO, ESO, BACH, FP, CCFF…);
   los eventos sin etapa se consideran comunes a todo el centro y se ven siempre.
+- **Horas no lectivas**: además de lo que pone el Word, se suma el detalle de cada martes/lunes (tareas, tutorías,
+  reuniones por etapa) copiado de los PDF del Claustro en `horas-no-lectivas.json`. Al filtrar por ese tipo se ve
+  el horario general y el enlace al PDF. **Cada trimestre** hay que añadir en ese archivo las tareas del PDF nuevo.
 - Buscador en todo el curso, «Próximos 14 días», notas del mes y lema del mes (p. ej. MAYO «Contigo...GRACIAS»).
 - Suscripción para Google Calendar, iPhone y Outlook (completo o por etapa), que también se actualiza sola.
 - Impresión del mes en A4 apaisado, se instala como app (PWA) y funciona sin conexión con la última copia.
@@ -34,6 +37,7 @@ Si el enlace deja de ser público, la web avisa y sigue enseñando la última co
 |---|---|
 | `index.html` | La web |
 | `api/calendario.js` | Lee el Word de SharePoint y lo convierte en datos (y en `calendario.ics` para suscribirse) |
+| `horas-no-lectivas.json` | Detalle de las horas no lectivas (copiado de los PDF del Claustro, uno por trimestre) |
 | `config.json` | **El enlace del documento** (lo único que se cambia cada año) |
 | `vercel.json` | Dirección `/calendario.ics` y permisos |
 | `manifest.json`, `sw.js`, iconos, `favicon*` | App instalable y modo sin conexión |
