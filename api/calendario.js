@@ -8,6 +8,7 @@
 
 const zlib = require("zlib");
 const config = require("../config.json");
+const horasNoLectivas = require("../horas-no-lectivas.json");
 
 const UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36";
 const MESES = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
@@ -19,11 +20,12 @@ const ETAPAS = {
   FP: /\bFP\b|\bCCFF\b|\bF\.P\b|\bCF\b|FARMACIA|TCAE|ADMINISTRATIVA|\bDAM\b|ciclos?\s+formativos?|formación en empresa|incorporación a empresas/i,
 };
 const CATEGORIAS = [
+  ["horas", /HORAS (?:NO LECTIVAS|COMPLEMENTARIAS)/i],
   ["festivo", /FESTIV|FIESTA NACIONAL|NO LECTIVO|VACACIONES|SEMANA SANTA|\bFERIA\b|\bCORPUS\b|DÍA DE LA INMACULADA|DÍA DEL TRABAJO|DÍA DE ANDALUCÍA/i],
   ["evaluacion", /EXÁMEN|EXAMEN|EVALUACI|\bEV\.|NOTAS|\bPAU\b|RECLAMACI|RECUPERACI|PRUEBAS? (?:DE )?DIAGN/i],
   ["familias", /FAMILIA/i],
   ["pastoral", /PASTORAL|EUCARIST|TRIDUO|ADVIENTO|CUARESMA|DON BOSCO|JUAN BOSCO|DOMUND|DOMISAL|CAPILLA|ORACI|PASCUA|RESURRECCI|MARÍA AUXILIADORA|MAZZARELLO|INMACULADA|NAVIDAD|BELÉN|BELENES|SOLIDARI|CONVIVENCIA|CARISMA|ESTRELLAS EN EL CIELO|HOLYWINS|BENDICI|CELEBRACI|MISA|CONFESI|CAMINO (?:DE )?SANTIAGO|BUENOS DÍAS|VOCACION|SOR EUSEBIA|LAURA VICUÑA|FRANCISCO DE SALES|DOMINGO DE|\bFMA\b|\bADMA\b|COOPERADORES|HOGARES|ANTIGU[OA]S ALUMN|SANDENEL|SANEL|MOVIMIENTO EXA/i],
-  ["reunion", /EQUIPO|CLAUSTRO|COMISI|REUNI|ENCUENTRO|FORMACI|HORAS (?:NO LECTIVAS|COMPLEMENTARIAS)|COORDINADOR|CONSEJO|SESIÓN|FORMATIVA|CONGRESO|PONENTE|RESPONSABLES DE|EDUCADORES|ACTUALIZACIÓN DE PROFESORES|ENTREGA (?:DE )?(?:PROGRAMACIONES|PLAN)|DIRECTIVOS/i],
+  ["reunion", /EQUIPO|CLAUSTRO|COMISI|REUNI|ENCUENTRO|FORMACI|COORDINADOR|CONSEJO|SESIÓN|FORMATIVA|CONGRESO|PONENTE|RESPONSABLES DE|EDUCADORES|ACTUALIZACIÓN DE PROFESORES|ENTREGA (?:DE )?(?:PROGRAMACIONES|PLAN)|DIRECTIVOS/i],
   ["actividad", /SALIDA|VISITA|VIAJE|EXCURSI|JORNADA|TALLER|TORNEO|CONCURSO|DÍA (?:MUNDIAL|INTERNACIONAL|DE|DEL)|SEMANA|FOTOS|MUSICAL|TEATRO|GRADUACI|ACTO|PROYECTO|CHARLA|CARRERA|ERASMUS|CASTAÑADA|MERCADILLO|COTILLÓN|ORLA|CERTAMEN|PASACALLES|APADRINAMIENTO|MOTIVACIÓN|ACTIVIDAD|VACUNACI|ST\. PATRICK|AMPA/i],
 ];
 
@@ -32,6 +34,7 @@ module.exports = async (req, res) => {
   try {
     const docx = await descargarDocumento(process.env.DOCUMENTO_URL || config.documento);
     const datos = leerCalendario(docx);
+    sumarHorasNoLectivas(datos, horasNoLectivas);
     datos.documento = process.env.DOCUMENTO_URL || config.documento;
     datos.consultado = new Date().toISOString();
 
@@ -187,6 +190,18 @@ function leerCalendario(docx) {
   return { titulo: titulo || "Calendario", curso, modificado, meses, dias };
 }
 
+// Suma al calendario el detalle de las horas no lectivas (horas-no-lectivas.json, copiado de los PDF del Claustro).
+function sumarHorasNoLectivas(datos, horas) {
+  const porFecha = new Map(datos.dias.map((d) => [d.fecha, d]));
+  for (const t of horas.tareas || []) {
+    const dia = porFecha.get(t.fecha);
+    if (!dia || !t.texto) continue;
+    const etapas = (t.etapas || []).filter((e) => ETAPAS[e]);
+    dia.eventos.push({ texto: t.texto, etapas: etapas.length === Object.keys(ETAPAS).length ? [] : etapas, cat: "horas" });
+  }
+  datos.horas = { horario: horas.horario || [], documentos: horas.documentos || [] };
+}
+
 function decodificar(s) {
   return s.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&apos;/g, "'")
     .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(+n)).replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)))
@@ -279,7 +294,7 @@ function generarIcs(datos, etapa) {
         `DTSTAMP:${sello}`,
         `DTSTART;VALUE=DATE:${d.fecha.replace(/-/g, "")}`,
         `DTEND;VALUE=DATE:${siguiente.toISOString().slice(0, 10).replace(/-/g, "")}`,
-        `SUMMARY:${esc(e.texto)}`,
+        `SUMMARY:${esc(e.cat === "horas" && !/HORAS/i.test(e.texto) ? "Horas no lectivas: " + e.texto : e.texto)}`,
         "TRANSP:TRANSPARENT",
         "END:VEVENT",
       );
