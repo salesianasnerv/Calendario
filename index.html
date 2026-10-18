@@ -173,6 +173,8 @@
         .campo { display: block; width: 100%; margin-top: 4px; height: 40px; padding: 0 10px; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; font-size: 14px; font-weight: 400; color: var(--texto); }
         .campo:focus { outline: none; border-color: var(--azul); box-shadow: 0 0 0 3px rgba(0, 154, 187, .18); }
         body.modo-admin main > :not(#administracion), body.modo-admin #offline-banner { display: none !important; }
+        body.vista-proximos main > :not(#proximos), body.vista-suscripcion main > :not(#suscripcion) { display: none !important; }
+        body:not(.vista-proximos) #proximos, body:not(.vista-suscripcion) #suscripcion { display: none; }
         body:not(.modo-admin) #administracion { display: none; }
         @media (max-width: 639px) { .campo { font-size: 16px; } .tarjeta { padding: 28px 20px; } }
 
@@ -1020,30 +1022,34 @@
 
         setupInstallPrompt();
 
-        // Menú superior: marca la sección visible
+        // Menú superior: cada pestaña muestra solo su apartado (#calendario, #proximos, #suscripcion; #admin lo lleva admin.js)
+        const VISTAS = ["calendario", "proximos", "suscripcion"];
         let updateNavSpy = () => {};
+        function mostrarVista(hash, subir) {
+            if (hash === "#admin") return;
+            const vista = VISTAS.includes((hash || "").slice(1)) ? hash.slice(1) : "calendario";
+            document.body.classList.remove("modo-admin", "vista-proximos", "vista-suscripcion");
+            if (vista !== "calendario") document.body.classList.add("vista-" + vista);
+            document.querySelectorAll("#tabs > a").forEach((a) => a.classList.toggle("activa", a.dataset.sec === vista));
+            if (subir) {
+                // Si se había bajado por la página, se vuelve justo debajo de la cabecera para ver la pestaña desde el principio
+                const tope = document.getElementById("tabs").offsetTop;
+                if (window.scrollY > tope) window.scrollTo({ top: tope });
+            }
+        }
         function setupNavSpy() {
-            const links = [...document.querySelectorAll("#tabs a[data-sec]")];
-            const mark = (id) => links.forEach((a) => a.classList.toggle("activa", a.dataset.sec === id));
-            let pending = false;
-            const update = () => {
-                pending = false;
-                if (document.body.classList.contains("modo-admin")) return;
-                const scrollable = document.documentElement.scrollHeight > window.innerHeight + 40;
-                const atBottom = scrollable && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
-                let current = links[0].dataset.sec;
-                for (const a of links) {
-                    const sec = document.getElementById(a.dataset.sec);
-                    if (sec && sec.getBoundingClientRect().top <= 120) current = a.dataset.sec;
-                }
-                mark(atBottom ? links[links.length - 1].dataset.sec : current);
-            };
-            const schedule = () => { if (!pending) { pending = true; requestAnimationFrame(update); } };
-            window.addEventListener("scroll", schedule, { passive: true });
-            window.addEventListener("resize", schedule);
-            links.forEach((a) => a.addEventListener("click", () => mark(a.dataset.sec)));
-            updateNavSpy = schedule;
-            update();
+            document.addEventListener("click", (ev) => {
+                const a = ev.target.closest('a[href="#calendario"], a[href="#proximos"], a[href="#suscripcion"]');
+                if (!a || ev.metaKey || ev.ctrlKey) return;
+                ev.preventDefault();
+                const hash = a.getAttribute("href");
+                if (location.hash !== hash) history.pushState(null, "", hash);
+                mostrarVista(hash, true);
+            });
+            // Atrás / adelante del navegador: se repinta la pestaña y admin.js decide si abre Administración
+            window.addEventListener("popstate", () => { mostrarVista(location.hash); window.dispatchEvent(new HashChangeEvent("hashchange")); });
+            updateNavSpy = () => mostrarVista(location.hash);
+            mostrarVista(location.hash);
         }
 
         // ---------------------------------------------------------------

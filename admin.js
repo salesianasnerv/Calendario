@@ -82,6 +82,7 @@
   function enAdmin() { return location.hash === "#admin"; }
 
   async function abrirAdmin() {
+    document.body.classList.remove("vista-proximos", "vista-suscripcion");
     document.body.classList.add("modo-admin");
     document.querySelectorAll("#tabs > a").forEach((a) => a.classList.toggle("activa", a.id === "tabAdmin"));
     window.scrollTo({ top: 0 });
