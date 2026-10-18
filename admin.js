@@ -42,7 +42,9 @@
 
   async function comprobarSesion() {
     const c = await cliente();
-    const { data: { session } } = await c.auth.getSession();
+    let { data: { session } } = await c.auth.getSession();
+    // Abierta desde la app de Teams: entra sola con la cuenta de Teams
+    if (!session && await window.TeamsSSO?.entrar(c)) ({ data: { session } } = await c.auth.getSession());
     if (!session) { yo = null; pintarSesion(); return null; }
     const u = session.user, email = (u.email || "").toLowerCase();
     if (!DOMINIOS.some((d) => email.endsWith("@" + d))) {
@@ -61,6 +63,7 @@
     $("loginError").textContent = "";
     try {
       const c = await cliente();
+      if (await window.TeamsSSO?.entrar(c)) { await comprobarSesion(); await pintarAdmin(); return; }
       try { sessionStorage.setItem(VOLVER_KEY, "1"); } catch {}
       ok(await c.auth.signInWithOAuth({ provider: "azure", options: { scopes: "email profile", redirectTo: location.origin + location.pathname } }));
     } catch (e) { $("loginError").textContent = e.message || String(e); }
@@ -314,6 +317,6 @@
       return;
     }
     if (enAdmin()) { abrirAdmin(); return; }
-    if (haySesionGuardada()) comprobarSesion().catch(() => {});
+    if (haySesionGuardada() || window.TeamsSSO?.enTeams) comprobarSesion().catch(() => {});
   });
 })();
