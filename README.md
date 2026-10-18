@@ -19,6 +19,18 @@ Web del calendario del curso de las Escuelas Salesianas María Auxiliadora (Nerv
 - Suscripción para Google Calendar, iPhone y Outlook (completo o por etapa), que también se actualiza sola.
 - Impresión del mes en A4 apaisado, se instala como app (PWA) y funciona sin conexión con la última copia.
 
+## Quién ve qué
+
+- **Profesorado:** todo el calendario, los próximos días y la suscripción, sin iniciar sesión (basta el enlace).
+- **Administración** (solo cuentas autorizadas, con Microsoft 365): botón «Administración» de la franja naranja.
+  - **Documentos actualizados:** enlaces al Word del calendario de cada curso, a los PDF de horas no lectivas de cada trimestre y a otros documentos, con su curso y notas.
+  - **Cuentas de administración:** dar o quitar este acceso (lista común `permisos` de Supabase, web `calendario`).
+
+La administración usa el Supabase común «Acceso Microsoft 365» (`config.js`). Para ponerla en marcha, una sola vez:
+
+1. En Supabase → *SQL Editor*, ejecuta `supabase/schema.sql` (crea `cal_documentos`, la vista `cal_admin` y las dos primeras cuentas).
+2. En Supabase → *Authentication → URL Configuration → Redirect URLs*, añade `https://calendario-nervion.vercel.app/**`. **No cambies la *Site URL***.
+
 ## Cada curso nuevo (lo único que hay que cambiar)
 
 1. En SharePoint, abre el Word del nuevo curso → **Compartir** → «**Cualquier persona con el vínculo** puede ver» → Copiar vínculo.
@@ -39,6 +51,8 @@ Si el enlace deja de ser público, la web avisa y sigue enseñando la última co
 | `api/calendario.js` | Lee el Word de SharePoint y lo convierte en datos (y en `calendario.ics` para suscribirse) |
 | `horas-no-lectivas.json` | Detalle de las horas no lectivas (copiado de los PDF del Claustro, uno por trimestre) |
 | `config.json` | **El enlace del documento** (lo único que se cambia cada año) |
+| `admin.js`, `config.js` | Administración (inicio de sesión con Microsoft 365 y conexión con Supabase) |
+| `supabase/schema.sql` | Tablas de la administración (se ejecuta una vez en Supabase) |
 | `vercel.json` | Dirección `/calendario.ics` y permisos |
 | `manifest.json`, `sw.js`, iconos, `favicon*` | App instalable y modo sin conexión |
 | `og-image.png` | Imagen que sale al compartir el enlace por WhatsApp (1200×630) |

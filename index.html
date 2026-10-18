@@ -121,6 +121,58 @@
             .instalar { display: none !important; }
         }
 
+        /* Quién ve qué (Profesorado / Administración), sesión e inicio de sesión: igual que Reserva de espacios */
+        .presenta-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; margin-top: 18px; align-items: start; }
+        .info-bloque { background: var(--panel); border: 1px solid var(--borde); border-radius: 12px; }
+        .info-bloque summary { list-style: none; display: flex; align-items: center; gap: 10px; padding: 12px 16px; cursor: pointer; font-weight: 700; }
+        .info-bloque summary::-webkit-details-marker { display: none; }
+        .info-bloque summary > svg { width: 20px; height: 20px; flex: none; fill: none; stroke: #d35a15; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .info-bloque summary > span { flex: 1; min-width: 0; }
+        .info-bloque summary small { display: block; font-weight: 500; font-size: .8rem; color: var(--suave); }
+        .info-bloque summary::after { content: ""; flex: none; width: 8px; height: 8px; border-right: 2px solid var(--suave); border-bottom: 2px solid var(--suave); transform: rotate(45deg); margin-top: -4px; transition: transform .15s; }
+        .info-bloque[open] summary::after { transform: rotate(-135deg); margin-top: 4px; }
+        .info-bloque summary:hover { color: #d35a15; }
+        .info-bloque ul { margin: 0; padding: 0 16px 14px 34px; color: var(--suave); font-size: .9rem; list-style: disc; }
+        .info-bloque li + li { margin-top: 3px; }
+        .info-bloque b { color: var(--texto); font-weight: 600; }
+        .aviso-etq { display: inline-block; margin-left: 6px; vertical-align: 3px; line-height: 1.5; font-style: normal; font-size: .7rem; font-weight: 700;
+            color: #c0262d; background: #fde8e7; padding: 1px 8px; border-radius: 999px; white-space: nowrap; }
+        .sesion { display: flex; justify-content: flex-end; align-items: center; gap: 10px; flex-wrap: wrap; padding: 8px 16px 0; font-size: 13px; }
+        .sesion[hidden], #tabs > a[hidden] { display: none; }
+        .sesion svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+        .sesion-nombre { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--texto); }
+        .sesion-nombre svg { color: #d35a15; }
+        .rol-etq { font-size: 11px; font-weight: 700; color: #b9530f; background: rgba(238, 113, 42, .14); padding: 1px 8px; border-radius: 999px; }
+        .rol-etq[hidden] { display: none; }
+        .sesion-salir { display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px; border-radius: 999px; cursor: pointer;
+            border: 1px solid rgba(238, 113, 42, .7); background: var(--panel); color: #b9530f; font: inherit; font-size: 13px; font-weight: 600; }
+        .sesion-salir:hover { background: #ee712a; border-color: #ee712a; color: #fff; }
+        .sesion:not([hidden]) + .presenta { padding-top: 8px; }
+        .login { display: grid; place-items: center; padding: 28px 0 32px; }
+        .tarjeta { background: var(--panel); border: 1px solid var(--borde); border-radius: 16px; padding: 36px 32px; max-width: 440px; width: 100%; text-align: center;
+            box-shadow: 0 10px 25px -5px rgba(0, 154, 187, .08), 0 8px 10px -6px rgba(0, 0, 0, .03); }
+        .tarjeta h2 { margin: 0 0 .4rem; color: #d35a15; font-size: 1.4rem; font-weight: 700; }
+        .tarjeta p { color: var(--suave); margin: 0 0 1.5rem; }
+        .tarjeta .error { color: #c0262d; min-height: 1.4em; margin: .75rem 0 0; }
+        .tarjeta .volver { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--suave); text-decoration: none; }
+        .tarjeta .volver:hover { color: var(--azul); }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid var(--borde); background: var(--panel); color: var(--texto); border-radius: 8px; padding: 8px 14px; cursor: pointer; font-weight: 600; font-size: 14px; text-decoration: none; }
+        .btn:hover { border-color: var(--azul); }
+        .btn:disabled { opacity: .5; cursor: not-allowed; }
+        .btn.primario { background: var(--azul); color: #fff; border-color: var(--azul); }
+        .btn.primario:hover { background: var(--azul-oscuro); border-color: var(--azul-oscuro); }
+        .btn.peligro { color: #c0262d; }
+        .btn.peligro:hover { border-color: #c0262d; }
+        .btn.grande { padding: 12px 20px; font-size: 16px; width: 100%; }
+        .btn.mini { padding: 3px 9px; font-size: 13px; }
+        .btn-ms { gap: 12px; box-shadow: 0 6px 16px -6px rgba(0, 154, 187, .55); }
+        .btn-ms svg { background: #fff; padding: 3px; border-radius: 4px; box-sizing: content-box; }
+        .campo { display: block; width: 100%; margin-top: 4px; height: 40px; padding: 0 10px; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; font-size: 14px; font-weight: 400; color: var(--texto); }
+        .campo:focus { outline: none; border-color: var(--azul); box-shadow: 0 0 0 3px rgba(0, 154, 187, .18); }
+        body.modo-admin main > :not(#administracion), body.modo-admin #offline-banner { display: none !important; }
+        body:not(.modo-admin) #administracion { display: none; }
+        @media (max-width: 639px) { .campo { font-size: 16px; } .tarjeta { padding: 28px 20px; } }
+
         .modal-card { max-height: 92vh; max-height: 92dvh; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
         .chip { padding: .25rem .75rem; border-radius: .5rem; font-size: .75rem; font-weight: 600; background: #f1f5f9; color: #475569; display: inline-flex; align-items: center; gap: .4rem; }
         .chip:hover { background: #e2e8f0; }
@@ -209,9 +261,14 @@
         <div class="franja-acc">
             <a id="enlace-documento" class="franja-btn" href="#" target="_blank" rel="noopener noreferrer" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>Ver documento <span class="doc-largo">original</span></a>
             <button type="button" class="franja-btn instalar" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Instalar como app</button>
+            <button type="button" class="franja-btn" id="btnAdminFranja"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Administración</button>
         </div>
     </div>
     <script>/* Curso escolar: cambia solo cada 1 de septiembre (luego se toma del documento) */document.querySelectorAll("[data-curso]").forEach(function(e){var d=new Date(),y=d.getFullYear()-(d.getMonth()<8?1:0);e.textContent="Curso "+y+"-"+(y+1);});</script>
+    <div class="sesion no-print" id="sesion" hidden>
+        <span class="sesion-nombre"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg><span id="usuario"></span><span class="rol-etq" id="rolEtq" hidden>Administración</span></span>
+        <button type="button" class="sesion-salir" id="btnSalir"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l5-5-5-5M15 12H4"/></svg>Salir</button>
+    </div>
     <section class="presenta no-print">
         <div class="presenta-sup"><div class="cartel" role="navigation" aria-label="Estás en"><a href="https://claustro-utilidades.vercel.app/" title="Ir al portal de utilidades del profesorado"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7M5 10v10h14V10"/></svg>Utilidades</a><span class="sep" aria-hidden="true">|</span><a href="https://claustro-utilidades.vercel.app/#apGeneral" title="Ir al apartado «General» del portal">General</a></div></div>
         <div class="presenta-cab">
@@ -221,11 +278,29 @@
                 <p>Festivos, evaluaciones, horas no lectivas, reuniones, pastoral y actividades de todas las etapas, siempre al día.</p>
             </div>
         </div>
+        <div class="presenta-info">
+            <details class="info-bloque">
+                <summary><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18 14.8c1.9.7 3.1 2.4 3.5 5.2"/></svg><span>Profesorado <small>Acceso: libre con el enlace, sin iniciar sesión</small></span></summary>
+                <ul>
+                    <li><b>Calendario:</b> el curso entero por meses, con filtros por etapa y por tipo (también las horas no lectivas) y buscador.</li>
+                    <li><b>Próximos días:</b> lo que viene en las dos próximas semanas.</li>
+                    <li><b>Suscripción:</b> el calendario en Google, iPhone u Outlook, completo o de tu etapa, siempre al día.</li>
+                </ul>
+            </details>
+            <details class="info-bloque">
+                <summary><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Administración <em class="aviso-etq">Solo cuentas autorizadas</em> <small>Acceso: inicio de sesión con Microsoft 365 (@salesianas.org)</small></span></summary>
+                <ul>
+                    <li><b>Documentos actualizados:</b> los enlaces del calendario de cada curso, los PDF de horas no lectivas de cada trimestre y otros documentos.</li>
+                    <li><b>Cuentas de administración:</b> dar o quitar este acceso.</li>
+                </ul>
+            </details>
+        </div>
     </section>
     <nav id="tabs" class="no-print" aria-label="Secciones de la página">
         <a href="#calendario" data-sec="calendario" class="activa">Calendario</a>
         <a href="#proximos" data-sec="proximos">Próximos días</a>
         <a href="#suscripcion" data-sec="suscripcion">Suscripción <span class="tab-largo">a calendarios</span></a>
+        <a href="#admin" id="tabAdmin" hidden>Administración</a>
     </nav>
     <div id="offline-banner" class="hidden no-print bg-amber-100 border-b border-amber-300 text-amber-900 text-xs font-semibold px-4 py-2 text-center"></div>
 
@@ -327,6 +402,15 @@
         </section>
 
         <p id="actualizado" class="text-center text-[11px] text-slate-400 no-print"></p>
+
+        <!-- ADMINISTRACIÓN (solo cuentas autorizadas; se abre con #admin) -->
+        <div id="administracion" class="space-y-4 md:space-y-6 no-print">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+                <h2 class="text-lg font-bold text-slate-800">Administración</h2>
+                <a href="#calendario" class="text-xs font-semibold text-slate-500 hover:text-corp-blue inline-flex items-center gap-1"><i data-lucide="arrow-left" class="w-4 h-4"></i>Volver al calendario</a>
+            </div>
+            <div id="admin-cuerpo" class="space-y-4 md:space-y-6"></div>
+        </div>
     </main>
 
     <footer class="pie no-print">Escuelas Salesianas María Auxiliadora · Nervión (Sevilla)</footer>
@@ -941,6 +1025,7 @@
             let pending = false;
             const update = () => {
                 pending = false;
+                if (document.body.classList.contains("modo-admin")) return;
                 const scrollable = document.documentElement.scrollHeight > window.innerHeight + 40;
                 const atBottom = scrollable && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
                 let current = links[0].dataset.sec;
@@ -1007,5 +1092,7 @@
             window.print();
         }
     </script>
+    <script src="config.js"></script>
+    <script src="admin.js"></script>
 </body>
 </html>
