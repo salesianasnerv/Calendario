@@ -52,9 +52,9 @@
       yo = null; pintarSesion();
       throw new Error(`Solo se permite el acceso con cuentas @${CFG.dominio}.`);
     }
-    // Solo devuelve fila si esta cuenta está en cal_admin (lo impone la base de datos)
-    const adm = await c.from("cal_admin").select("email").eq("email", email).limit(1);
-    yo = { email, nombre: u.user_metadata?.full_name || u.user_metadata?.name || email.split("@")[0], admin: !adm.error && adm.data.length > 0 };
+    // Administra quien está en cal_admin o en la Comisión Pedagógica (grupo de Microsoft 365); lo decide la base de datos
+    const adm = await c.rpc("cal_es_admin");
+    yo = { email, nombre: u.user_metadata?.full_name || u.user_metadata?.name || email.split("@")[0], admin: !adm.error && adm.data === true };
     pintarSesion();
     return yo;
   }
