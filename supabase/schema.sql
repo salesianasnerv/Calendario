@@ -20,7 +20,10 @@ begin
 end $$;
 
 create or replace function cal_es_admin() returns boolean
-language sql stable security definer set search_path = public as $$ select tiene_permiso('calendario') $$;
+language sql stable security definer set search_path = public as $$
+  select tiene_permiso('calendario')
+      or (es_profesorado() and exists (select 1 from personal where email = email_actual() and activo and 'comision_pedagogica' = any(grupos_entra)))
+$$;  -- también la Comisión Pedagógica (grupo de Microsoft 365, sincronizado cada noche)
 grant execute on function cal_es_admin() to anon, authenticated;
 
 -- 2. Reglas de «permisos» para las filas del calendario (se suman a las que ya hay)
